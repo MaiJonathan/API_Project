@@ -8,12 +8,50 @@
     tools:context=".JokeCreationActivity">
 
     <Button
+        android:id="@+id/button_main_jokeViewer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View The Joke"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switch_main_jokeTypeSingle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:text="Single"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/switch_main_jokeTypeDouble"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_jokeViewer" />
+
+    <Switch
+        android:id="@+id/switch_main_jokeTypeDouble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:text="Double"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/switch_main_jokeTypeSingle"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_jokeViewer" />
+
+    <Button
         android:id="@+id/button_main_jokeCreator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#E91E63"
         android:text="Create The Joke"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_main_jokeViewer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

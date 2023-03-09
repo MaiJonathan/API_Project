@@ -60,4 +60,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_jokeDetail_delivery" />
 
+    <Switch
+        android:id="@+id/button_jokeDetail_jokeSaver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="SAVE THE JOKE"
+        app:layout_constraintBottom_toTopOf="@+id/textView_jokedetail_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_jokeDetail_category" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

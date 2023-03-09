@@ -1,6 +1,7 @@
 package com.example.humorousjokes
 
 import android.os.Parcelable
+import android.widget.RatingBar
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,4 +21,6 @@ data class Jokes(
     val setup: String,
     val delivery: String,
     val type: String,
+    var rating: Float = 0F,
+    var saved: Boolean = false
 ) : Parcelable
