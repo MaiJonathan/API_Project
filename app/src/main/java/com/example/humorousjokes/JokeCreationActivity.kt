@@ -23,6 +23,7 @@ class JokeCreationActivity : AppCompatActivity() {
         val EXTRA_ID = "JokeBannana"
         val EXTRA_RATING = "JokeAnanana"
         val EXTRA_SAVED = "JokeNananan"
+        val EXTRA_JOKETHINGY = "jokething"
     }
     val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -83,6 +84,7 @@ class JokeCreationActivity : AppCompatActivity() {
             registrationIntent.putExtra(EXTRA_ID, joke.id)
             registrationIntent.putExtra(EXTRA_SAVED, joke.saved)
             registrationIntent.putExtra(EXTRA_RATING, joke.rating)
+            registrationIntent.putExtra(EXTRA_JOKETHINGY,joke)
 //            //3a. launch the new activity using the intent
 //            startActivity(registrationIntent)
             //3b. Launch the activity for a result using the variable from the register for result contract above
