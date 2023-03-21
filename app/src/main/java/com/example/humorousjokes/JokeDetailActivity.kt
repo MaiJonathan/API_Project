@@ -1,5 +1,6 @@
 package com.example.humorousjokes
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +14,11 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.Writer
-import java.lang.reflect.Type
 
 
 class JokeDetailActivity : AppCompatActivity() {
     companion object{
+        val SAVEDJOKES = "WORK"
         val EXTRA_JOKE = "JOKE"
     }
 
@@ -71,61 +72,80 @@ class JokeDetailActivity : AppCompatActivity() {
             jokeRating = binding.ratingBarJokeDetail.rating
             System.out.println(joke)
             jokeList.add(joke)
-            System.out.println(jokeList)
+//
+//            val gson = Gson()
+//            var savedJokesFile = createFile()
+//            createJsonData()
+//            val path = this.filesDir.absolutePath
+//            val file = File("$path/LET/savedjokes.json")
+//            System.out.println(file)
+//
+//            val jsonTutsList: String = gson.toJson(jokeList)
+//            savedJokesFile.writeText(jsonTutsList)
+//            val jsonString = savedJokesFile.bufferedReader().use {
+//
+//                it.readText()
+//            }
+//            val type = object : TypeToken<List<Jokes>>() { }.type
+//            val questions = gson.fromJson<List<Jokes>>(jsonString, type)
+//            System.out.println(questions + "linus")
+
+
         }
         binding.buttonJokeDetailViewSavedJokes.setOnClickListener {
+            val savedJokeIntent = Intent(it.context, SavedJokes::class.java)
+            savedJokeIntent.putExtra(SAVEDJOKES, jokeList)
+            it.context.startActivity(savedJokeIntent)
 
         }
 
     }
 
-    //does not work probably
-//    private fun createJsonData(){
-//        var json = JSONObject()
-//
-//        json.put("frogs",classicJoke)
-//        saveJson(json.toString())
-//
-//    }
-//    private fun saveJson(s:String){
-//        val output: Writer
-//        val path = this.getExternalFilesDir(null)
-//        val letDirectory = File(path, "LET")
-//        letDirectory.mkdirs()
-//
-//        var file = File(letDirectory, "savedjokes.json")
-//        if(!file.exists()){
-//            file.createNewFile()
-//        }
-//
-//        output = BufferedWriter(FileWriter(file))
-//        output.write(s)
-//        output.close()
-//        System.out.println(file)
-//    }
-//
-//    private fun createFile(): File{
-//        val fileName = "myJson"
-//        val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-//        if (storageDir != null) {
-//            if(!storageDir.exists()){
-//                storageDir.mkdir()
-//            }
-//        }
-//        return File.createTempFile(
-//            fileName,
-//            ".json",
-//            storageDir
-//        )
-//    }
-//
-//    private fun addJoke(theFunnyJoke: Jokes):JSONArray?{
-//        var jokeJson = JSONArray()
-//
-//            jokeJson.put{
-//                theFunnyJoke
-//        }
-//        return jokeJson
-//    }
+    private fun createJsonData(){
+        var json = JSONObject()
+
+        json.put("savedjokes",classicJoke)
+        saveJson(json.toString())
+
+    }
+    private fun saveJson(s:String){
+        val output: Writer
+        val path = this.getExternalFilesDir(null)
+        val letDirectory = File(path, "LET")
+        letDirectory.mkdirs()
+
+        var file = File(letDirectory, "savedjokes.json")
+        if(!file.exists()){
+            file.createNewFile()
+        }
+
+        output = BufferedWriter(FileWriter(file))
+        output.write(s)
+        output.close()
+        System.out.println(file)
+    }
+
+    private fun createFile(): File{
+        val fileName = "savedjokes"
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        if (storageDir != null) {
+            if(!storageDir.exists()){
+                storageDir.mkdir()
+            }
+        }
+        return File.createTempFile(
+            fileName,
+            ".json",
+            storageDir
+        )
+    }
+    private fun addJoke(theFunnyJoke: Jokes):JSONArray?{
+        var jokeJson = JSONArray()
+
+        jokeJson.put{
+            theFunnyJoke
+        }
+        return jokeJson
+    }
 }
 
