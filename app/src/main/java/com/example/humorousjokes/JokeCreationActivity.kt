@@ -77,13 +77,13 @@ class JokeCreationActivity : AppCompatActivity() {
             val registrationIntent = Intent(this, JokeDetailActivity::class.java)
             //2 optionally add information to send with the intent
             //key-value pai rs just like with Bundles
-            registrationIntent.putExtra(EXTRA_JOKETEXT, joke.joke)
-            registrationIntent.putExtra(EXTRA_JOKEDELIVERY, joke.delivery)
-            registrationIntent.putExtra(EXTRA_JOKESETUP, joke.setup)
-            registrationIntent.putExtra(EXTRA_CATEGORY, joke.category)
-            registrationIntent.putExtra(EXTRA_ID, joke.id)
-            registrationIntent.putExtra(EXTRA_SAVED, joke.saved)
-            registrationIntent.putExtra(EXTRA_RATING, joke.rating)
+//            registrationIntent.putExtra(EXTRA_JOKETEXT, joke.joke)
+//            registrationIntent.putExtra(EXTRA_JOKEDELIVERY, joke.delivery)
+//            registrationIntent.putExtra(EXTRA_JOKESETUP, joke.setup)
+//            registrationIntent.putExtra(EXTRA_CATEGORY, joke.category)
+//            registrationIntent.putExtra(EXTRA_ID, joke.id)
+//            registrationIntent.putExtra(EXTRA_SAVED, joke.saved)
+//            registrationIntent.putExtra(EXTRA_RATING, joke.rating)
             registrationIntent.putExtra(EXTRA_JOKETHINGY,joke)
 //            //3a. launch the new activity using the intent
 //            startActivity(registrationIntent)

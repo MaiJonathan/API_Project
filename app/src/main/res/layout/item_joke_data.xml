@@ -2,42 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstrainLayout_JokeItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView_jokeItem_jokeCategory"
-        android:layout_width="85dp"
-        android:layout_height="31dp"
+        android:id="@+id/textView_jokeItem_Joke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Misc"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar_jokeItem_jokeRating" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar_jokeItem_JokeRating" />
 
     <RatingBar
-        android:id="@+id/ratingBar_jokeItem_jokeRating"
+        android:id="@+id/ratingBar_jokeItem_JokeRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:theme="@style/Widget.AppCompat.RatingBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView_jokeItem_jokePreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Why did the chicken cross the road?"
-        app:layout_constraintStart_toEndOf="@+id/textView_jokeItem_jokeCategory"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar_jokeItem_jokeRating" />
-
+        android:isIndicator="false"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

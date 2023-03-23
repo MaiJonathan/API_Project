@@ -12,6 +12,17 @@ import java.io.File
 class SavedJokes : AppCompatActivity() {
     private lateinit var binding: ActivitySavedJokesBinding
     lateinit var adapter: JokeAdapter
+    lateinit var savedJokesList: List<Jokes>
+    var classicJoke = Jokes(
+        category = "Misc",
+        joke = "A perfectionist walked into a bar... apparently, the bar was not set high enough.",
+        delivery = "",
+        id = 288 ,
+        setup = "",
+        lang = "",
+        safe = true,
+        type = "",
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,20 +31,20 @@ class SavedJokes : AppCompatActivity() {
 //        val path = this.filesDir.absolutePath
 //        val file = File("$path/LET/savedjokes.json")
 //        getSavedJokesFromFileThingy(file)
-        //use serialization
-        var savedJokes = intent.getParcelableExtra<Jokes>(JokeDetailActivity.SAVEDJOKES)
-        System.out.println(savedJokes)
+        var test = intent.getParcelableArrayListExtra<Jokes>(JokeDetailActivity.SAVEDJOKES)
+        if(test.isNullOrEmpty()){
+            if (test != null) {
+                test.add(classicJoke)
+            }
+        }
+        if (test != null) {
+            savedJokesList = test.toList()
+        }
+        getSavedJokesFromFileThingy()
     }
 
 
-    private fun getSavedJokesFromFileThingy(file: File){
-        val gson = Gson()
-        val jsonString = file.bufferedReader().use {
-            it.readText()
-        }
-        val type = object : TypeToken<List<Jokes>>() { }.type
-        val savedJokesList = gson.fromJson<List<Jokes>>(jsonString, type)
-
+    private fun getSavedJokesFromFileThingy(){
         adapter = JokeAdapter(savedJokesList)
         binding.RecyclerViewSavedJokes.adapter = adapter
         binding.RecyclerViewSavedJokes.layoutManager = LinearLayoutManager(null)

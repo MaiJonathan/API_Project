@@ -23,8 +23,6 @@ class JokeDetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityJokeDetailBinding
-    lateinit var adapter: JokeAdapter
-    lateinit var jokeList: ArrayList<Jokes>
     var classicJoke = Jokes(
         category = "Misc",
         joke = "A perfectionist walked into a bar... apparently, the bar was not set high enough.",
@@ -43,33 +41,29 @@ class JokeDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var joke = intent.getParcelableExtra<Jokes>(EXTRA_JOKETHINGY)?: classicJoke
-        jokeList = arrayListOf(classicJoke)
+        var jokeList = ArrayList<Jokes>()
 
-
+//        val jokeText = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKETEXT) ?: ""
+//        val jokeDelivery = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKEDELIVERY) ?: ""
+//        val jokeSetup = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKESETUP) ?: ""
+//        val jokeCategory = intent.getStringExtra(JokeCreationActivity.EXTRA_CATEGORY) ?: ""
+//        var jokeSaved = intent.getBooleanExtra(JokeCreationActivity.EXTRA_SAVED, false)
+//        var jokeRating = intent.getFloatExtra(JokeCreationActivity.EXTRA_RATING, 0F)
 //        val jokeId = intent.getStringExtra(JokeCreationActivity.EXTRA_ID) ?: ""
 
-        val jokeText = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKETEXT) ?: ""
-        val jokeDelivery = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKEDELIVERY) ?: ""
-        val jokeSetup = intent.getStringExtra(JokeCreationActivity.EXTRA_JOKESETUP) ?: ""
-        val jokeCategory = intent.getStringExtra(JokeCreationActivity.EXTRA_CATEGORY) ?: ""
-        var jokeSaved = intent.getBooleanExtra(JokeCreationActivity.EXTRA_SAVED, false)
-        var jokeRating = intent.getFloatExtra(JokeCreationActivity.EXTRA_RATING, 0F)
-
-//        val jokeId = intent.getStringExtra(JokeCreationActivity.EXTRA_ID) ?: ""
-
-        if (!jokeText.isEmpty()) {
-            binding.textViewJokeDetailJoke.text = jokeText
+        if (joke.joke?.isNotEmpty() == true) {
+            binding.textViewJokeDetailJoke.text = joke.joke
         }
-        if (!jokeDelivery.isEmpty()) {
-            binding.textViewJokeDetailJoke.setText(jokeSetup)
-            binding.textViewJokeDetailDelivery.setText(jokeDelivery)
+        if (joke.delivery?.isNotEmpty() == true) {
+            binding.textViewJokeDetailJoke.setText(joke.setup)
+            binding.textViewJokeDetailDelivery.setText(joke.delivery)
         }
-        binding.textViewJokeDetailCategory.text = jokeCategory
+        binding.textViewJokeDetailCategory.text = joke.category
 
         //saves the joke to savedjokes.json
         binding.buttonJokeDetailJokeSaver.setOnCheckedChangeListener { buttonView, isChecked ->
-            jokeSaved = !jokeSaved
-            jokeRating = binding.ratingBarJokeDetail.rating
+            joke.saved = !joke.saved
+            joke.rating = binding.ratingBarJokeDetail.rating
             System.out.println(joke)
             jokeList.add(joke)
 //
@@ -101,51 +95,51 @@ class JokeDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun createJsonData(){
-        var json = JSONObject()
-
-        json.put("savedjokes",classicJoke)
-        saveJson(json.toString())
-
-    }
-    private fun saveJson(s:String){
-        val output: Writer
-        val path = this.getExternalFilesDir(null)
-        val letDirectory = File(path, "LET")
-        letDirectory.mkdirs()
-
-        var file = File(letDirectory, "savedjokes.json")
-        if(!file.exists()){
-            file.createNewFile()
-        }
-
-        output = BufferedWriter(FileWriter(file))
-        output.write(s)
-        output.close()
-        System.out.println(file)
-    }
-
-    private fun createFile(): File{
-        val fileName = "savedjokes"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        if (storageDir != null) {
-            if(!storageDir.exists()){
-                storageDir.mkdir()
-            }
-        }
-        return File.createTempFile(
-            fileName,
-            ".json",
-            storageDir
-        )
-    }
-    private fun addJoke(theFunnyJoke: Jokes):JSONArray?{
-        var jokeJson = JSONArray()
-
-        jokeJson.put{
-            theFunnyJoke
-        }
-        return jokeJson
-    }
+//    private fun createJsonData(){
+//        var json = JSONObject()
+//
+//        json.put("savedjokes",classicJoke)
+//        saveJson(json.toString())
+//
+//    }
+//    private fun saveJson(s:String){
+//        val output: Writer
+//        val path = this.getExternalFilesDir(null)
+//        val letDirectory = File(path, "LET")
+//        letDirectory.mkdirs()
+//
+//        var file = File(letDirectory, "savedjokes.json")
+//        if(!file.exists()){
+//            file.createNewFile()
+//        }
+//
+//        output = BufferedWriter(FileWriter(file))
+//        output.write(s)
+//        output.close()
+//        System.out.println(file)
+//    }
+//
+//    private fun createFile(): File{
+//        val fileName = "savedjokes"
+//        val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+//        if (storageDir != null) {
+//            if(!storageDir.exists()){
+//                storageDir.mkdir()
+//            }
+//        }
+//        return File.createTempFile(
+//            fileName,
+//            ".json",
+//            storageDir
+//        )
+//    }
+//    private fun addJoke(theFunnyJoke: Jokes):JSONArray?{
+//        var jokeJson = JSONArray()
+//
+//        jokeJson.put{
+//            theFunnyJoke
+//        }
+//        return jokeJson
+//    }
 }
 

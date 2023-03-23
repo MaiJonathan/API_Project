@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,12 +16,14 @@ class JokeAdapter (var dataSet: List<Jokes>):
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewJoke: TextView
+        val ratingbarJoke: RatingBar
         val layout: ConstraintLayout
 
         init {
             // Define click listener for the ViewHolder's View
-            textViewJoke = view.findViewById(R.id.textView_jokeItem_jokePreview)
-            layout = view.findViewById(R.id.layout_main)
+            textViewJoke = view.findViewById(R.id.textView_jokeItem_Joke)
+            ratingbarJoke = view.findViewById(R.id.ratingBar_jokeItem_JokeRating)
+            layout = view.findViewById(R.id.ConstrainLayout_JokeItem)
         }
     }
 
@@ -37,6 +40,7 @@ class JokeAdapter (var dataSet: List<Jokes>):
         // contents of the view with that element
         val jokeData = dataSet[position]
         viewHolder.textViewJoke.text = jokeData.joke
+        viewHolder.ratingbarJoke.rating = jokeData.rating
 
         viewHolder.layout.setOnClickListener {
             val detailIntent = Intent(it.context, JokeDetailActivity::class.java)
