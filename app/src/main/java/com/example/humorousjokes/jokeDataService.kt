@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface jokeDataService {
-    @GET("joke/Any?")
+    @GET("joke/Any?&safe-mode")
     fun getJokeByType(
         @Query("blacklistFlags") blacklistFlags: List<String>,
         @Query("type") type:String,

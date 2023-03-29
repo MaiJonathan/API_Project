@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,6 @@
         android:id="@+id/textView_jokedetail_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Id"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_jokeDetail_delivery" />
 
     <Switch
-        android:id="@+id/button_jokeDetail_jokeSaver"
+        android:id="@+id/switch_jokeDetail_jokeSaver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
@@ -76,13 +76,23 @@
         android:id="@+id/button_jokeDetail_viewSavedJokes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="View Saved Jokes"
         app:layout_constraintBottom_toTopOf="@+id/textView_jokedetail_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_jokeDetail_jokeSaver"
+        app:layout_constraintTop_toBottomOf="@+id/switch_jokeDetail_jokeSaver"
         app:layout_constraintVertical_bias="0.5"
         tools:text="View Saved Jokes" />
+
+    <Button
+        android:id="@+id/button_jokedDetail_creationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Back to Creator"
+        app:layout_constraintBottom_toTopOf="@+id/switch_jokeDetail_jokeSaver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

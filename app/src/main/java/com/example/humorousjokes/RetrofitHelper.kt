@@ -7,7 +7,6 @@ import retrofit2.create
 
 object RetrofitHelper {
 
-    //always ends in a slash
     val baseUrl = "https://v2.jokeapi.dev/"
 
     fun getInstance(): Retrofit{

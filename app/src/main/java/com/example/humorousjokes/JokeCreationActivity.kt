@@ -1,9 +1,14 @@
 package com.example.humorousjokes
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,14 +21,8 @@ import retrofit2.Response
 class JokeCreationActivity : AppCompatActivity() {
     companion object {
         const val TAG = "JokeListActivity"
-        val EXTRA_JOKETEXT = "JokeAhahah"
-        val EXTRA_JOKEDELIVERY = "JokeHehehe"
-        val EXTRA_JOKESETUP = "JokeHahaha"
-        val EXTRA_CATEGORY = "JokeEheheh"
-        val EXTRA_ID = "JokeBannana"
-        val EXTRA_RATING = "JokeAnanana"
-        val EXTRA_SAVED = "JokeNananan"
         val EXTRA_JOKETHINGY = "jokething"
+        val EXTRA_SAVEDJOKETHINGY = "jokeThigny"
     }
     val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -42,6 +41,8 @@ class JokeCreationActivity : AppCompatActivity() {
         val FLAGS = listOf("nsfw", "religious", "politcal", "racist", "sexist", "explicit")
         var typeSingleChecked = false
         var typeDoubleChecked = false
+        var jokeCreated = false
+        var test = intent.getParcelableArrayListExtra<Jokes>(EXTRA_SAVEDJOKETHINGY)
 
         fun getTheHumorousJokes(type: String, amount: Int, safe: Boolean) {
             val jokeDataService = RetrofitHelper.getInstance().create(jokeDataService::class.java)
@@ -53,15 +54,13 @@ class JokeCreationActivity : AppCompatActivity() {
                     response: Response<Jokes>
                 ) {
                     Log.d(TAG, "onRun: ${response.body()}")
-                    //the three lines to create the CountyAdapter
                     if (response.body() != null) {
                         System.out.println(response.raw())
                         joke = response.body()!!
                     } else {
                         Log.d(TAG, "null")
                     }
-                    //the response.body() is the List<CountyData>
-
+                    jokeCreated = true
                 }
 
                 override fun onFailure(call: Call<Jokes>, t: Throwable) {
@@ -69,26 +68,18 @@ class JokeCreationActivity : AppCompatActivity() {
                 }
             })
         }
-        getTheHumorousJokes("Any", 1, true)
 
         binding.buttonMainJokeViewer.setOnClickListener {
-            // 1. Create an intent object with the current activity
-            //and the destination activity's class
-            val registrationIntent = Intent(this, JokeDetailActivity::class.java)
-            //2 optionally add information to send with the intent
-            //key-value pai rs just like with Bundles
-//            registrationIntent.putExtra(EXTRA_JOKETEXT, joke.joke)
-//            registrationIntent.putExtra(EXTRA_JOKEDELIVERY, joke.delivery)
-//            registrationIntent.putExtra(EXTRA_JOKESETUP, joke.setup)
-//            registrationIntent.putExtra(EXTRA_CATEGORY, joke.category)
-//            registrationIntent.putExtra(EXTRA_ID, joke.id)
-//            registrationIntent.putExtra(EXTRA_SAVED, joke.saved)
-//            registrationIntent.putExtra(EXTRA_RATING, joke.rating)
-            registrationIntent.putExtra(EXTRA_JOKETHINGY,joke)
-//            //3a. launch the new activity using the intent
-//            startActivity(registrationIntent)
-            //3b. Launch the activity for a result using the variable from the register for result contract above
-            startRegistrationForResult.launch(registrationIntent)
+            if(jokeCreated) {
+                val registrationIntent = Intent(this, JokeDetailActivity::class.java)
+                registrationIntent.putExtra(EXTRA_JOKETHINGY, joke)
+                registrationIntent.putExtra(EXTRA_SAVEDJOKETHINGY, test)
+                startRegistrationForResult.launch(registrationIntent)
+            }
+            else
+            {
+                Toast.makeText(this, "You must create the joke first or try again", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.switchMainJokeTypeSingle.setOnCheckedChangeListener { buttonView, isChecked ->
             typeSingleChecked = !typeSingleChecked
@@ -103,5 +94,26 @@ class JokeCreationActivity : AppCompatActivity() {
             else if(typeSingleChecked){type = "single"}
             getTheHumorousJokes(type, 1, true)
         }
+    }
+    override fun onCreateOptionsMenu (menu : Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.joke_info_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.Item_jokeInfo -> {
+                val builder = AlertDialog.Builder(this)
+                with(builder){
+                    setTitle("Info")
+                    setMessage("You must create the joke before viewing it\n\nSingle: Creates a one-liner joke\nDouble: Creates a joke with a setup and punchline\nNone or Both: Creates a joke with either type")
+                    show()
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 }

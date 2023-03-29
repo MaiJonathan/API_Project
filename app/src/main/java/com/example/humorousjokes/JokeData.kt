@@ -5,13 +5,6 @@ import android.widget.RatingBar
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class JokeData(
-    val error: Boolean,
-    val amount: Int,
-    val jokes: List<Jokes>,
-) :  Parcelable
-
-@Parcelize
 data class Jokes(
     val category: String,
     val id: Int,
@@ -20,7 +13,7 @@ data class Jokes(
     val safe: Boolean,
     val setup: String?,
     val delivery: String?,
-    val type: String,
+    val type: String  = "none",
     var rating: Float = 0F,
     var saved: Boolean = false
 ) : Parcelable

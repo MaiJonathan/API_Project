@@ -2,49 +2,57 @@ package com.example.humorousjokes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.humorousjokes.databinding.ActivitySavedJokesBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.File
 
 class SavedJokes : AppCompatActivity() {
     private lateinit var binding: ActivitySavedJokesBinding
     lateinit var adapter: JokeAdapter
     lateinit var savedJokesList: List<Jokes>
-    var classicJoke = Jokes(
-        category = "Misc",
-        joke = "A perfectionist walked into a bar... apparently, the bar was not set high enough.",
-        delivery = "",
-        id = 288 ,
-        setup = "",
-        lang = "",
-        safe = true,
-        type = "",
-        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySavedJokesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        val path = this.filesDir.absolutePath
-//        val file = File("$path/LET/savedjokes.json")
-//        getSavedJokesFromFileThingy(file)
+
         var test = intent.getParcelableArrayListExtra<Jokes>(JokeDetailActivity.SAVEDJOKES)
-        if(test.isNullOrEmpty()){
-            if (test != null) {
-                test.add(classicJoke)
-            }
-        }
         if (test != null) {
-            savedJokesList = test.toList()
-        }
-        getSavedJokesFromFileThingy()
+            savedJokesList = test.toList()}
+        Log.d("hi","$savedJokesList")
+        getSavedJokes()
+    }
+    override fun onCreateOptionsMenu (menu : Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.saved_list_menu,menu)
+        return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.Item_savedLIstMenu_sortByRating -> {
+                savedJokesList = savedJokesList.sortedBy {
+                    it.rating
+                }
+                getSavedJokes()
+                true
+            }
+            R.id.Item_savedListMenu_sortByCategory -> {
+                savedJokesList = savedJokesList.sortedBy {
+                    it.category
+                }
+                getSavedJokes()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
-    private fun getSavedJokesFromFileThingy(){
+    }
+
+    private fun getSavedJokes(){
         adapter = JokeAdapter(savedJokesList)
         binding.RecyclerViewSavedJokes.adapter = adapter
         binding.RecyclerViewSavedJokes.layoutManager = LinearLayoutManager(null)
