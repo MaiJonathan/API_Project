@@ -1,7 +1,6 @@
 package com.example.humorousjokes
 
 import android.os.Parcelable
-import android.widget.RatingBar
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

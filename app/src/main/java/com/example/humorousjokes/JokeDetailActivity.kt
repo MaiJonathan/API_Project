@@ -2,25 +2,15 @@ package com.example.humorousjokes
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
 import com.example.humorousjokes.JokeCreationActivity.Companion.EXTRA_JOKETHINGY
 import com.example.humorousjokes.JokeCreationActivity.Companion.EXTRA_SAVEDJOKETHINGY
 import com.example.humorousjokes.databinding.ActivityJokeDetailBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.Writer
-
 
 class JokeDetailActivity : AppCompatActivity() {
     companion object{
-        val SAVEDJOKES = "WORK"
-        val EXTRA_JOKE = "JOKE"
+        val SAVEDJOKES = "PLEASE"
+        val EXTRA_JOKE = "WORK"
     }
 
     private lateinit var binding: ActivityJokeDetailBinding
@@ -32,9 +22,9 @@ class JokeDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var jokeList = ArrayList<Jokes>()
-        var creationJoke = intent.getParcelableExtra<Jokes>(EXTRA_JOKETHINGY)
-        var savedJoke = intent.getParcelableExtra<Jokes>(EXTRA_JOKE)
-        var test = intent.getParcelableArrayListExtra<Jokes>(EXTRA_SAVEDJOKETHINGY)
+        val creationJoke = intent.getParcelableExtra<Jokes>(EXTRA_JOKETHINGY)
+        val savedJoke = intent.getParcelableExtra<Jokes>(EXTRA_JOKE)
+        val test = intent.getParcelableArrayListExtra<Jokes>(EXTRA_SAVEDJOKETHINGY)
 
         if (test != null) {
             jokeList = test}
@@ -43,7 +33,6 @@ class JokeDetailActivity : AppCompatActivity() {
             joke.saved = false
         }
         if(savedJoke != null){
-            System.out.println("MONEKY")
             joke = savedJoke
             binding.switchJokeDetailJokeSaver.isChecked = true
             binding.ratingBarJokeDetail.rating = joke.rating
@@ -75,7 +64,6 @@ class JokeDetailActivity : AppCompatActivity() {
                 joke.rating = 0F
                 binding.ratingBarJokeDetail.rating = joke.rating
             }
-            System.out.println(joke)
 
         }
 

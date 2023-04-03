@@ -1,13 +1,10 @@
 package com.example.humorousjokes
 
 import android.content.Intent
-import android.util.Log
 import android.view.*
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class JokeAdapter (var dataSet: List<Jokes>):
@@ -34,9 +31,7 @@ class JokeAdapter (var dataSet: List<Jokes>):
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        var context = viewHolder.textViewJoke.context
         val jokeData = dataSet[position]
-        Log.d("Linus", "$jokeData")
         if(jokeData.joke.isNullOrEmpty()) {
             viewHolder.textViewJoke.text = jokeData.setup
         }
@@ -46,10 +41,11 @@ class JokeAdapter (var dataSet: List<Jokes>):
 
         viewHolder.layout.setOnClickListener {
             val detailIntent = Intent(it.context, JokeDetailActivity::class.java)
+            val arrayListHelper = ArrayList<Jokes>()
+            dataSet.forEach {Jokes -> arrayListHelper.add(Jokes)}
+
             detailIntent.putExtra(JokeDetailActivity.EXTRA_JOKE, jokeData)
-            var linusWrong = ArrayList<Jokes>()
-            dataSet.forEach {Jokes -> linusWrong.add(Jokes)}
-            detailIntent.putExtra(JokeCreationActivity.EXTRA_SAVEDJOKETHINGY,linusWrong)
+            detailIntent.putExtra(JokeCreationActivity.EXTRA_SAVEDJOKETHINGY,arrayListHelper)
             it.context.startActivity(detailIntent)
         }
     }

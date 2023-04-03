@@ -1,6 +1,5 @@
 package com.example.humorousjokes
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -25,9 +24,6 @@ class JokeCreationActivity : AppCompatActivity() {
         val EXTRA_SAVEDJOKETHINGY = "jokeThigny"
     }
     val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = result.data
-        }
     }
 
     private lateinit var binding: ActivityJokeCreationBinding
@@ -42,7 +38,7 @@ class JokeCreationActivity : AppCompatActivity() {
         var typeSingleChecked = false
         var typeDoubleChecked = false
         var jokeCreated = false
-        var test = intent.getParcelableArrayListExtra<Jokes>(EXTRA_SAVEDJOKETHINGY)
+        val savedJokes = intent.getParcelableArrayListExtra<Jokes>(EXTRA_SAVEDJOKETHINGY)
 
         fun getTheHumorousJokes(type: String, amount: Int, safe: Boolean) {
             val jokeDataService = RetrofitHelper.getInstance().create(jokeDataService::class.java)
@@ -73,7 +69,7 @@ class JokeCreationActivity : AppCompatActivity() {
             if(jokeCreated) {
                 val registrationIntent = Intent(this, JokeDetailActivity::class.java)
                 registrationIntent.putExtra(EXTRA_JOKETHINGY, joke)
-                registrationIntent.putExtra(EXTRA_SAVEDJOKETHINGY, test)
+                registrationIntent.putExtra(EXTRA_SAVEDJOKETHINGY, savedJokes)
                 startRegistrationForResult.launch(registrationIntent)
             }
             else

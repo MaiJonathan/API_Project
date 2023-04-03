@@ -2,7 +2,6 @@ package com.example.humorousjokes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -19,10 +18,9 @@ class SavedJokes : AppCompatActivity() {
         binding = ActivitySavedJokesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var test = intent.getParcelableArrayListExtra<Jokes>(JokeDetailActivity.SAVEDJOKES)
+        val test = intent.getParcelableArrayListExtra<Jokes>(JokeDetailActivity.SAVEDJOKES)
         if (test != null) {
             savedJokesList = test.toList()}
-        Log.d("hi","$savedJokesList")
         getSavedJokes()
     }
     override fun onCreateOptionsMenu (menu : Menu): Boolean {
